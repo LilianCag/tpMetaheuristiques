@@ -9,5 +9,6 @@ public class Test {
         int population = 100;
         double taux_mutation = 0.01;
         AlgoGenetique ag = new AlgoGenetique(population, taux_mutation);
+        ag.algo();
     }
 }

@@ -10,6 +10,10 @@ public class AlgoGenetique {
         this.taux_mutation = taux_mutation;
     }
 
+    public void algo() {
+        Individu[] individus = generation();
+    }
+
     public Individu[] generation() {
         Individu[] individus = new Individu[population];
         for(int i = 0; i < population; i++) {
