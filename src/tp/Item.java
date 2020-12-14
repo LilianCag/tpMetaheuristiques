@@ -15,4 +15,19 @@ public class Item {
         this.w = w;
     }
 
+    public int[] getP() {
+        return p;
+    }
+
+    public void setP(int[] p) {
+        this.p = p;
+    }
+
+    public int[] getW() {
+        return w;
+    }
+
+    public void setW(int[] w) {
+        this.w = w;
+    }
 }

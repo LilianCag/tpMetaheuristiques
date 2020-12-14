@@ -1,5 +1,7 @@
 package tp;
 
+import java.util.Arrays;
+
 public class AlgoGenetique {
 
     private int population;
@@ -22,8 +24,8 @@ public class AlgoGenetique {
         return individus;
     }
 
-    public void selection() {
-
+    public void selection(Individu[] individus) {
+        Arrays.sort(individus, (a,b) -> b.getScore() - a.getScore());
     }
 
     public void procreation() {

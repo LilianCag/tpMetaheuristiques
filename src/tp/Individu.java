@@ -24,6 +24,7 @@ public class Individu {
             // this.poids += tab[i].getCoutAtIndex(rand);
             // this.cout += tab[i].getPoidsAtIndex(rand);
         }
+        this.score = 0;
     }
 
     /**
