@@ -8,8 +8,8 @@ public class Test {
          */
         int population = 100;
         double taux_mutation = 0.01;
-        int nb_simulations = 1000;
-        AlgoGenetique ag = new AlgoGenetique(population, taux_mutation, nb_simulations);
+        int nb_generations = 1000;
+        AlgoGenetique ag = new AlgoGenetique(population, taux_mutation, nb_generations);
         ag.algo();
     }
 }

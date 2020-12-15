@@ -6,12 +6,12 @@ public class AlgoGenetique {
 
     private int population;
     private double taux_mutation;
-    private int nb_simulation;
+    private int nb_generations;
 
-    public AlgoGenetique(int population, double taux_mutation, int nb_simulation) {
+    public AlgoGenetique(int population, double taux_mutation, int nb_generations) {
         this.population = population;
         this.taux_mutation = taux_mutation;
-        this.nb_simulation = nb_simulation;
+        this.nb_generations = nb_generations;
     }
 
     public void algo() {
