@@ -6,10 +6,12 @@ public class AlgoGenetique {
 
     private int population;
     private double taux_mutation;
+    private int nb_simulation;
 
-    public AlgoGenetique(int population, double taux_mutation) {
+    public AlgoGenetique(int population, double taux_mutation, int nb_simulation) {
         this.population = population;
         this.taux_mutation = taux_mutation;
+        this.nb_simulation = nb_simulation;
     }
 
     public void algo() {
@@ -26,6 +28,7 @@ public class AlgoGenetique {
 
     public void selection(Individu[] individus) {
         Arrays.sort(individus, (a,b) -> b.getScore() - a.getScore());
+
     }
 
     public void procreation() {
@@ -35,5 +38,4 @@ public class AlgoGenetique {
     public void mutation() {
 
     }
-
 }
