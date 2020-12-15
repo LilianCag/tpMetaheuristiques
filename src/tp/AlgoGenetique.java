@@ -19,20 +19,21 @@ public class AlgoGenetique {
     }
 
     public Individu[] generation() {
-        Individu[] individus = new Individu[population];
-        for(int i = 0; i < population; i++) {
+        Individu[] individus = new Individu[this.population];
+        for(int i = 0; i < this.population; i++) {
             individus[i] = new Individu();
         }
         return individus;
     }
 
-    public void selection(Individu[] individus) {
+    public Individu[] selection(Individu[] individus) {
         Arrays.sort(individus, (a,b) -> b.getScore() - a.getScore());
-
+        Individu[] selectionIndividus = new Individu[this.population/2];
+        return selectionIndividus;
     }
 
     public void procreation() {
-
+        Individu[] nouvelleGeneration = new Individu[this.population];
     }
 
     public void mutation() {
