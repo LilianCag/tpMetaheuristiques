@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String[] args) {
-        String FichierLire = "idkp1_1.txt";
+        String FichierLire = "sdkp1_1.txt";
         int n = 0; // nombre de groupes
         int b = 0; // capacité du sac
         Item tabItems[] = null; // tableau d'objets

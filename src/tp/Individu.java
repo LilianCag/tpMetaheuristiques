@@ -48,6 +48,11 @@ public class Individu {
         }
     }
 
+    public void mutation(double taux_mutation) {
+        int imax = (int) Math.floor(taux_mutation * n);
+        System.out.println(imax);
+    }
+
     public int[] getGenome() {
         return genome;
     }
