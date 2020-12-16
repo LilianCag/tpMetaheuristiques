@@ -98,13 +98,14 @@ public class AlgoGenetique {
         // Ajout du meilleur individu
         nouvelleGeneration[0] = selectionIndividus[0];
         // Procréations
-        int i = 1;
+        int i = 2;
         while (i < nouvelleGeneration.length) {
-            int rand1 = (int) (Math.random() % 10);
-            int rand2 = (int) (Math.random() % 50);
-            nouvelleGeneration[i] = new Individu(selectionIndividus[rand1], selectionIndividus[rand2], this.tabItems, this.capacite);
-            i++;
+            int j = i / 2;
+            nouvelleGeneration[i-1] = new Individu(selectionIndividus[j-1], selectionIndividus[j], this.tabItems, this.capacite);
+            nouvelleGeneration[i] = new Individu(selectionIndividus[j], selectionIndividus[j-1], this.tabItems, this.capacite);
+            i+=2;
         }
+        nouvelleGeneration[this.population-1] = new Individu(selectionIndividus[0], selectionIndividus[selectionIndividus.length-1], this.tabItems, this.capacite);
         //afficherPopulation(nouvelleGeneration);
         return nouvelleGeneration;
     }

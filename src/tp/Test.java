@@ -77,7 +77,7 @@ public class Test {
         int population = 1000;
         double taux_meilleurs = 0.4;
         double taux_mutation = 0.01;
-        int nb_generations = 10000;
+        int nb_generations = 100000;
         AlgoGenetique ag = new AlgoGenetique(n, b, tabItems, opt_value, population, taux_meilleurs, taux_mutation, nb_generations);
         ag.algo();
     }
