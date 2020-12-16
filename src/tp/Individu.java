@@ -1,6 +1,7 @@
 package tp;
 
 import java.lang.Math;
+import java.util.Arrays;
 
 public class Individu {
 
@@ -8,23 +9,25 @@ public class Individu {
     private int[] genome; // Génome de l'individu (-1 : pas d'objet choisi, 0 : objet 1, 1 : objet 2, 2 : objet 3)
     private int poids; // Poids de l'individu (total du sac)
     private int cout; // Coût de l'individu (total du sac)
-    private int score; // Score de l'individu (0 si poids < capacité, coût sinon)
+    private int score; // Score de l'individu (0 si poids > capacité, coût sinon)
 
     /**
      * Constructeur : Génération aléatoire
      */
-    public Individu() {
-        this.n = 50;
+    public Individu(Item[] tabItems, int capacite) {
+        this.n = tabItems.length;
         this.genome = new int[n];
         this.poids = 0;
         this.cout = 0;
         for (int i = 0; i < n; i++) {
             int rand = (int)(Math.random() * 4) - 1;
             this.genome[i] = rand;
-            // this.poids += tab[i].getCoutAtIndex(rand);
-            // this.cout += tab[i].getPoidsAtIndex(rand);
+            if(rand != -1) {
+                this.poids += tabItems[i].getW()[rand];
+                this.cout += tabItems[i].getP()[rand];
+            }
         }
-        this.score = 0;
+        determinerScore(capacite);
     }
 
     /**
@@ -34,6 +37,15 @@ public class Individu {
      */
     public Individu(Individu i1, Individu i2) {
 
+    }
+
+    public void determinerScore(int capacite) {
+        if (this.poids > capacite) {
+            this.score = 0;
+        }
+        else {
+            this.score = this.cout;
+        }
     }
 
     public int[] getGenome() {
@@ -66,5 +78,15 @@ public class Individu {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "Individu{" +
+                "genome=" + Arrays.toString(genome) +
+                ", poids=" + poids +
+                ", cout=" + cout +
+                ", score=" + score +
+                '}';
     }
 }

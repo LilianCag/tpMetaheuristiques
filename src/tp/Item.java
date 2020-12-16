@@ -1,5 +1,7 @@
 package tp;
 
+import java.util.Arrays;
+
 public class Item {
 
     private int[] p; // Couts d'un item
@@ -8,11 +10,9 @@ public class Item {
     /**
      * Constructeur
      * @param p : tableau de 3 coûts provenant du fichier
-     * @param w : tableau de 3 poids provenant du fichier
      */
-    public Item(int[] p, int[] w) {
+    public Item(int[] p) {
         this.p = p;
-        this.w = w;
     }
 
     public int[] getP() {
@@ -29,5 +29,13 @@ public class Item {
 
     public void setW(int[] w) {
         this.w = w;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "p=" + Arrays.toString(p) +
+                ", w=" + Arrays.toString(w) +
+                '}';
     }
 }
