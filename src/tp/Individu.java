@@ -1,7 +1,9 @@
 package tp;
 
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Individu {
 
@@ -35,8 +37,26 @@ public class Individu {
      * @param i1 : Parent 1
      * @param i2 : Parent 2
      */
-    public Individu(Individu i1, Individu i2) {
-
+    public Individu(Individu i1, Individu i2, Item[] tabItems, int capacite) {
+        this.n = tabItems.length;
+        this.genome = new int[n];
+        this.poids = 0;
+        this.cout = 0;
+        for (int i = 0; i < n/2; i++) {
+            this.genome[i] = i1.getGenome()[i];
+            if(this.genome[i] != -1) {
+                this.poids += tabItems[i].getW()[this.genome[i]];
+                this.cout += tabItems[i].getP()[this.genome[i]];
+            }
+        }
+        for (int i = n/2; i < n; i++) {
+            this.genome[i] = i2.getGenome()[i];
+            if(this.genome[i] != -1) {
+                this.poids += tabItems[i].getW()[this.genome[i]];
+                this.cout += tabItems[i].getP()[this.genome[i]];
+            }
+        }
+        determinerScore(capacite);
     }
 
     public void determinerScore(int capacite) {
@@ -49,8 +69,29 @@ public class Individu {
     }
 
     public void mutation(double taux_mutation) {
-        int imax = (int) Math.floor(taux_mutation * n);
-        System.out.println("Taux de mutation : "+imax+"%");
+        int imax = (int) Math.round(taux_mutation * n);
+
+        // Liste d'index que l'on mute
+        List<Integer> listIndex = new ArrayList<>();
+        for(int i = 0; i < imax; i++) {
+            int indexRand = (int) (Math.random() * n);
+            if (listIndex.contains(indexRand)) {
+                while (listIndex.contains(indexRand)) {
+                    indexRand = (int) (Math.random() * n);
+                }
+            }
+            listIndex.add(indexRand);
+        }
+        // Mutation des index de la liste
+        for (Integer index : listIndex) {
+            int i = 0;
+            int rand = (int) ((Math.random() * 3) + 1);
+            while (i < rand) {
+                if (this.genome[index] == 2) this.genome[index] = -1;
+                else this.genome[index] ++;
+                i++;
+            }
+        }
     }
 
     public int[] getGenome() {

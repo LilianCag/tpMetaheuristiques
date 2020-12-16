@@ -1,6 +1,8 @@
 package tp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class AlgoGenetique {
 
@@ -28,10 +30,25 @@ public class AlgoGenetique {
     }
 
     public void algo() {
+        long tempsDebut = System.currentTimeMillis();
+        int generation = 0;
         Individu[] individus = generation();
         tri(individus);
-        afficherPopulation(individus);
-        individus[0].mutation(taux_mutation);
+        while (generation < nb_generations && individus[0].getScore() != opt_value && opt_value != 0) {
+            Individu[] selectionIndividus = selection(individus);
+            Individu[] nouvelleGeneration = procreation(selectionIndividus);
+            individus = mutation(nouvelleGeneration);
+            tri(individus);
+            if (generation % 500 == 0) System.out.println("Meilleur résultat de la génération " + generation + " :\n " + individus[0].getScore());
+            generation++;
+        }
+        long tempsFin = System.currentTimeMillis();
+        float secondes = (tempsFin - tempsDebut) / 1000F;
+        System.out.println("Valeur optimale théorique : "+ this.opt_value);
+        if(individus[0].getScore() == opt_value) System.out.println("Résultat trouvé à la génération " + generation + " en " + secondes + " secondes.");
+        else System.out.println("Programme terminé en " + secondes + " secondes. " +
+                "Résultat : "+ individus[0].getScore()
+                + ", " + (((float) individus[0].getScore() / (float) this.opt_value) * 100) + "%.");
     }
 
     /**
@@ -56,19 +73,47 @@ public class AlgoGenetique {
 
     public Individu[] selection(Individu[] individus) {
         Individu[] selectionIndividus = new Individu[this.population/2];
+        // Sélection des meilleurs
         int i;
-        for(i=0; i<Math.floor(this.population*taux_meilleurs); i++) {
+        int indexMeilleurs = (int) Math.floor(this.population*taux_meilleurs);
+        for(i=0; i<indexMeilleurs; i++) {
             selectionIndividus[i] = individus[i];
+        }
+        List<Integer> used = new ArrayList<>();
+        while(i < selectionIndividus.length) {
+            int rand = (int) (Math.random() * (this.population - indexMeilleurs) + indexMeilleurs);
+            if(used.contains(rand)) {
+                while (used.contains(rand)) {
+                    rand = (int) (Math.random() * (this.population - indexMeilleurs) + indexMeilleurs);
+                }
+            }
+            selectionIndividus[i] = individus[rand];
+            i++;
         }
         return selectionIndividus;
     }
 
-    public void procreation() {
+    public Individu[] procreation(Individu[] selectionIndividus) {
         Individu[] nouvelleGeneration = new Individu[this.population];
+        // Ajout du meilleur individu
+        nouvelleGeneration[0] = selectionIndividus[0];
+        // Procréations
+        int i = 1;
+        while (i < nouvelleGeneration.length) {
+            int rand1 = (int) (Math.random() % 10);
+            int rand2 = (int) (Math.random() % 50);
+            nouvelleGeneration[i] = new Individu(selectionIndividus[rand1], selectionIndividus[rand2], this.tabItems, this.capacite);
+            i++;
+        }
+        //afficherPopulation(nouvelleGeneration);
+        return nouvelleGeneration;
     }
 
-    public void mutation() {
-
+    public Individu[] mutation(Individu[] nouvelleGeneration) {
+        for(int i = 0; i < this.population; i++) {
+            nouvelleGeneration[i].mutation(this.taux_mutation);
+        }
+        return nouvelleGeneration;
     }
 
     /**
@@ -76,8 +121,10 @@ public class AlgoGenetique {
      * @param individus tableau à afficher
      */
     public void afficherPopulation(Individu[] individus) {
-        for(int i = 0; i < this.population; i++) {
-            System.out.println(individus[i].toString());
+        int i = 0;
+        while (i < individus.length) {
+            System.out.println((i+1) + " " + individus[i].toString());
+            i++;
         }
     }
 }

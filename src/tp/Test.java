@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String[] args) {
-        String FichierLire = "sdkp1_1.txt";
+        String FichierLire = "udkp2_1.txt";
         int n = 0; // nombre de groupes
         int b = 0; // capacité du sac
         Item tabItems[] = null; // tableau d'objets
@@ -74,10 +74,10 @@ public class Test {
         /*
          * Variables d'environnement
          */
-        int population = 100;
-        double taux_meilleurs = 0.2;
+        int population = 1000;
+        double taux_meilleurs = 0.4;
         double taux_mutation = 0.01;
-        int nb_generations = 1000;
+        int nb_generations = 10000;
         AlgoGenetique ag = new AlgoGenetique(n, b, tabItems, opt_value, population, taux_meilleurs, taux_mutation, nb_generations);
         ag.algo();
     }
