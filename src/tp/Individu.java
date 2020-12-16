@@ -50,7 +50,7 @@ public class Individu {
 
     public void mutation(double taux_mutation) {
         int imax = (int) Math.floor(taux_mutation * n);
-        System.out.println(imax);
+        System.out.println("Taux de mutation : "+imax+"%");
     }
 
     public int[] getGenome() {
