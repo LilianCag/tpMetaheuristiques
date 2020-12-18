@@ -20,18 +20,19 @@ public class AlgoGenetique {
     private double taux_meilleurs; // Taux de sélection par meilleur score
     private double taux_mutation; // Taux de mutation
     private int nb_generations; // Nombre de générations
+    private String fichierLire; // Lecture fichier en paramètre
 
     // Constructeur
-    public AlgoGenetique(int nb_groupes, int capacite, Item[] tabItems, int opt_value, int population, double taux_meilleurs, double taux_mutation, int nb_generations) {
+    public AlgoGenetique(int nb_groupes, int capacite, Item[] tabItems, int opt_value, int population, double taux_meilleurs, double taux_mutation, int nb_generations, String fichierLire) {
         this.nb_groupes = nb_groupes;
         this.capacite = capacite;
         this.tabItems = tabItems;
         this.opt_value = opt_value;
-
         this.population = population;
         this.taux_meilleurs = taux_meilleurs;
         this.taux_mutation = taux_mutation;
         this.nb_generations = nb_generations;
+        this.fichierLire = fichierLire;
     }
 
     /**
@@ -188,7 +189,7 @@ public class AlgoGenetique {
     }
 
     public void givenDataArray_whenConvertToCSV_thenOutputCreated(List<String[]> dataLines) throws IOException {
-        File csvOutputFile = new File("src/resultats/result"+ this.population + "_" + this.nb_generations + ".csv");
+        File csvOutputFile = new File("src/resultats/result"+ this.population + "_" + this.nb_generations + "_" + this.fichierLire + ".csv");
         try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
             dataLines.stream()
                     .map(this::convertToCSV)
