@@ -59,6 +59,10 @@ public class Individu {
         determinerScore(capacite);
     }
 
+    /**
+     * Détermine le score d'un individu
+     * @param capacite du sac
+     */
     public void determinerScore(int capacite) {
         if (this.poids > capacite) {
             this.score = 0;
@@ -68,6 +72,10 @@ public class Individu {
         }
     }
 
+    /**
+     * Fonction mutation d'un individu
+     * @param taux_mutation
+     */
     public void mutation(double taux_mutation) {
         int imax = (int) Math.round(taux_mutation * n);
 

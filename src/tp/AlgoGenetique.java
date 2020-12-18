@@ -34,26 +34,47 @@ public class AlgoGenetique {
         this.nb_generations = nb_generations;
     }
 
+    /**
+     * Algorithme Génétique
+     * @throws IOException
+     */
     public void algo() throws IOException {
         List<String[]> dataLines = new ArrayList<>();
         long tempsDebut = System.currentTimeMillis();
+
+        /*
+         * Génération 0
+         */
         int generation = 0;
         Individu[] individus = generation();
-        dataLines.add(new String[] {"" + generation, "" + individus[0].getScore()});
         tri(individus);
+        // Affichage du résultat de la génération
+        System.out.println("Meilleur résultat de la génération " + generation + " : \n " + individus[0].getScore());
+        dataLines.add(new String[] {"" + generation, "" + individus[0].getScore()});
+
+        /*
+         * Génération 1+
+         */
         while (generation < nb_generations && ((individus[0].getScore() != opt_value && opt_value != 0) || opt_value == 0)) {
             Individu[] selectionIndividus = selection(individus);
             Individu[] nouvelleGeneration = procreation(selectionIndividus);
             individus = mutation(nouvelleGeneration);
             tri(individus);
             generation++;
-            if (generation % 500 == 0) {
+
+            // Affichage du résultat de la génération
+            if (generation % 10 == 0) {
                 System.out.println("Meilleur résultat de la génération " + generation + " :\n " + individus[0].getScore());
                 dataLines.add(new String[] {"" + generation, "" + individus[0].getScore()});
             }
         }
+
         long tempsFin = System.currentTimeMillis();
         float secondes = (tempsFin - tempsDebut) / 1000F;
+
+        /*
+        Affichage des résultats
+         */
         if (opt_value != 0) {
             System.out.println("Valeur optimale théorique : "+ this.opt_value);
             if(individus[0].getScore() == opt_value) System.out.println("Résultat trouvé à la génération " + generation + " en " + secondes + " secondes.");
@@ -88,6 +109,11 @@ public class AlgoGenetique {
         return individus;
     }
 
+    /**
+     * Fonction sélection
+     * @param individus Population
+     * @return Sélection de la population
+     */
     public Individu[] selection(Individu[] individus) {
         Individu[] selectionIndividus = new Individu[this.population/2];
         // Sélection des meilleurs
@@ -110,6 +136,11 @@ public class AlgoGenetique {
         return selectionIndividus;
     }
 
+    /**
+     * Fonction procréation
+     * @param selectionIndividus sélection d'individus qui vont procréer
+     * @return nouvelle génération d'individus
+     */
     public Individu[] procreation(Individu[] selectionIndividus) {
         Individu[] nouvelleGeneration = new Individu[this.population];
         // Ajout du meilleur individu
@@ -127,6 +158,11 @@ public class AlgoGenetique {
         return nouvelleGeneration;
     }
 
+    /**
+     * Fonction mutation
+     * @param nouvelleGeneration individus à muter
+     * @return individus mutés
+     */
     public Individu[] mutation(Individu[] nouvelleGeneration) {
         for(int i = 0; i < this.population; i++) {
             nouvelleGeneration[i].mutation(this.taux_mutation);

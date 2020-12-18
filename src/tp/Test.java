@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String[] args) throws IOException {
-        String FichierLire = "udkp1_1.txt";
+        String FichierLire = "udkp2_1.txt";
         int n = 0; // nombre de groupes
         int b = 0; // capacité du sac
         Item tabItems[] = null; // tableau d'objets
@@ -75,10 +75,10 @@ public class Test {
         /*
          * Variables d'environnement
          */
-        int population = 1000;
-        double taux_meilleurs = 0.8; // entre 0 et 1
+        int population = 5000;
+        double taux_meilleurs = 0.5; // entre 0 et 1
         double taux_mutation = 0.01; // entre 0 et 1
-        int nb_generations = 10000;
+        int nb_generations = 5000;
         AlgoGenetique ag = new AlgoGenetique(n, b, tabItems, opt_value, population, taux_meilleurs, taux_mutation, nb_generations);
         ag.algo();
     }
