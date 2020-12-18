@@ -1,8 +1,13 @@
 package tp;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AlgoGenetique {
 
@@ -29,18 +34,23 @@ public class AlgoGenetique {
         this.nb_generations = nb_generations;
     }
 
-    public void algo() {
+    public void algo() throws IOException {
+        List<String[]> dataLines = new ArrayList<>();
         long tempsDebut = System.currentTimeMillis();
         int generation = 0;
         Individu[] individus = generation();
+        dataLines.add(new String[] {"" + generation, "" + individus[0].getScore()});
         tri(individus);
-        while (generation < nb_generations && individus[0].getScore() != opt_value && opt_value != 0) {
+        while (generation < nb_generations && ((individus[0].getScore() != opt_value && opt_value != 0) || opt_value == 0)) {
             Individu[] selectionIndividus = selection(individus);
             Individu[] nouvelleGeneration = procreation(selectionIndividus);
             individus = mutation(nouvelleGeneration);
             tri(individus);
-            if (generation % 500 == 0) System.out.println("Meilleur résultat de la génération " + generation + " :\n " + individus[0].getScore());
             generation++;
+            if (generation % 500 == 0) {
+                System.out.println("Meilleur résultat de la génération " + generation + " :\n " + individus[0].getScore());
+                dataLines.add(new String[] {"" + generation, "" + individus[0].getScore()});
+            }
         }
         long tempsFin = System.currentTimeMillis();
         float secondes = (tempsFin - tempsDebut) / 1000F;
@@ -49,6 +59,7 @@ public class AlgoGenetique {
         else System.out.println("Programme terminé en " + secondes + " secondes. " +
                 "Résultat : "+ individus[0].getScore()
                 + ", " + (((float) individus[0].getScore() / (float) this.opt_value) * 100) + "%.");
+        givenDataArray_whenConvertToCSV_thenOutputCreated(dataLines);
     }
 
     /**
@@ -75,7 +86,7 @@ public class AlgoGenetique {
         Individu[] selectionIndividus = new Individu[this.population/2];
         // Sélection des meilleurs
         int i;
-        int indexMeilleurs = (int) Math.floor(this.population*taux_meilleurs);
+        int indexMeilleurs = (int) Math.floor((this.population/2)*taux_meilleurs);
         for(i=0; i<indexMeilleurs; i++) {
             selectionIndividus[i] = individus[i];
         }
@@ -126,6 +137,23 @@ public class AlgoGenetique {
         while (i < individus.length) {
             System.out.println((i+1) + " " + individus[i].toString());
             i++;
+        }
+    }
+
+    public String convertToCSV(String[] data) {
+        return Stream.of(data)
+                .collect(Collectors.joining(","));
+    }
+
+    public void givenDataArray_whenConvertToCSV_thenOutputCreated(List<String[]> dataLines) throws IOException {
+        File csvOutputFile = new File("src/resultats/result"+ this.population + "_" + this.nb_generations + ".csv");
+        try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+            dataLines.stream()
+                    .map(this::convertToCSV)
+                    .forEach(pw::println);
+        }
+        catch (IOException e) {
+            throw e;
         }
     }
 }

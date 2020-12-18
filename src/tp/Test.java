@@ -2,11 +2,12 @@ package tp;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Test {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String FichierLire = "udkp2_1.txt";
         int n = 0; // nombre de groupes
         int b = 0; // capacité du sac
@@ -75,9 +76,9 @@ public class Test {
          * Variables d'environnement
          */
         int population = 1000;
-        double taux_meilleurs = 0.4;
-        double taux_mutation = 0.01;
-        int nb_generations = 100000;
+        double taux_meilleurs = 0.8; // entre 0 et 1
+        double taux_mutation = 0.01; // entre 0 et 1
+        int nb_generations = 10000;
         AlgoGenetique ag = new AlgoGenetique(n, b, tabItems, opt_value, population, taux_meilleurs, taux_mutation, nb_generations);
         ag.algo();
     }
