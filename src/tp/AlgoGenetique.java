@@ -51,7 +51,8 @@ public class AlgoGenetique {
         tri(individus);
         // Affichage du résultat de la génération
         System.out.println("Meilleur résultat de la génération " + generation + " : \n " + individus[0].getScore());
-        dataLines.add(new String[] {"" + generation, "" + ((float) individus[0].getScore() / (float) this.opt_value) * 100});
+        dataLines.add(new String[] {"" + generation, "" + individus[0].getScore()});
+        //dataLines.add(new String[] {"" + generation, "" + ((float) individus[0].getScore() / (float) this.opt_value) * 100});
 
         /*
          * Génération 1+
@@ -64,9 +65,10 @@ public class AlgoGenetique {
             generation++;
 
             // Affichage du résultat de la génération
-            if (generation % 10 == 0) {
-                //System.out.println("Meilleur résultat de la génération " + generation + " :\n " + individus[0].getScore());
-                dataLines.add(new String[] {"" + generation, "" + ((float) individus[0].getScore() / (float) this.opt_value) * 100});
+            if (generation % 100 == 0) {
+                System.out.println("Meilleur résultat de la génération " + generation + " :\n " + individus[0].getScore());
+                dataLines.add(new String[] {"" + generation, "" + individus[0].getScore()});
+                //dataLines.add(new String[] {"" + generation, "" + ((float) individus[0].getScore() / (float) this.opt_value) * 100});
             }
         }
 
