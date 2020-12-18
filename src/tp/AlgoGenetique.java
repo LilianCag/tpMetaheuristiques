@@ -54,12 +54,18 @@ public class AlgoGenetique {
         }
         long tempsFin = System.currentTimeMillis();
         float secondes = (tempsFin - tempsDebut) / 1000F;
-        System.out.println("Valeur optimale théorique : "+ this.opt_value);
-        if(individus[0].getScore() == opt_value) System.out.println("Résultat trouvé à la génération " + generation + " en " + secondes + " secondes.");
-        else System.out.println("Programme terminé en " + secondes + " secondes. " +
-                "Résultat : "+ individus[0].getScore()
-                + ", " + (((float) individus[0].getScore() / (float) this.opt_value) * 100) + "%.");
-        givenDataArray_whenConvertToCSV_thenOutputCreated(dataLines);
+        if (opt_value != 0) {
+            System.out.println("Valeur optimale théorique : "+ this.opt_value);
+            if(individus[0].getScore() == opt_value) System.out.println("Résultat trouvé à la génération " + generation + " en " + secondes + " secondes.");
+            else System.out.println("Programme terminé en " + secondes + " secondes. " +
+                    "Résultat : "+ individus[0].getScore()
+                    + ", " + (((float) individus[0].getScore() / (float) this.opt_value) * 100) + "%.");
+            givenDataArray_whenConvertToCSV_thenOutputCreated(dataLines);
+        }
+        else {
+            System.out.println("Résultat final : " + individus[0].getScore());
+        }
+
     }
 
     /**

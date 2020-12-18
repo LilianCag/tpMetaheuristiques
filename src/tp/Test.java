@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Test {
 
     public static void main(String[] args) throws IOException {
-        String FichierLire = "udkp2_1.txt";
+        String FichierLire = "udkp1_1.txt";
         int n = 0; // nombre de groupes
         int b = 0; // capacité du sac
         Item tabItems[] = null; // tableau d'objets
